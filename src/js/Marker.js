@@ -3,18 +3,19 @@ import React from 'react';
 export default class Marker extends React.Component {
 
   componentDidUpdate(prevProps) {
-    console.log('Maps', this.props.map, prevProps.map);
     const mapChanged = this.props.map !== prevProps.map;
     const positionChanged = this.props.pos !== prevProps.position;
 
     if (mapChanged || positionChanged) {
       const { map, google, pos, listeners } = this.props;
+      this.destroyMarker();
       this.renderMarker(map, google, pos, listeners);
     }
   }
 
   // Destroy marker
   componentWillUnmount() {
+    console.log('To be destroyed');
     this.destroyMarker();
   }
 
