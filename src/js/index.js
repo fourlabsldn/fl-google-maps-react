@@ -1,2 +1,6 @@
 import Map from './Map';
-export default Map;
+import Marker from './Marker';
+export default {
+  Map,
+  Marker,
+};

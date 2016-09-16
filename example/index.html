@@ -20,10 +20,11 @@
 <body>
   <div id="map"></div>
 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnN-kxq2XUTo_oDRHmyWFrNok_uHctFQU"></script>
   <script>
     require(['./demo.js'], demo => {
       const container = document.querySelector('#map');
-      demo(container);
+      demo(container, google);
     })
   </script>
 </body>
