@@ -1,9 +1,11 @@
+// npm install --save-dev gulp path gulp-uglify vinyl-buffer gulp-flatmap rollup-stream rollup-plugin-babel vinyl-source-stream gulp-sourcemaps rollup-plugin-replace rollup-plugin-commonjs rollup-plugin-node-resolve gulp-organiser lodash babel-preset-es2015-rollup babel-preset-react babel-plugin-transform-async-to-generator babel-plugin-external-helpers-2
+
 /**
-Hidden dependencies:
-	babel-preset-es2015-rollup
-	babel-preset-react
-	babel-plugin-transform-async-to-generator
-	babel-plugin-external-helpers-2
+  Hidden dependencies:
+  	babel-preset-es2015-rollup
+  	babel-preset-react
+  	babel-plugin-transform-async-to-generator
+  	babel-plugin-external-helpers-2
  */
 
 // ============================================================================
@@ -21,30 +23,30 @@ const sourcemaps = require('gulp-sourcemaps');
 const replace = require('rollup-plugin-replace');
 const commonjs = require('rollup-plugin-commonjs');
 const nodeResolve = require('rollup-plugin-node-resolve');
-const straw = require('./straw');
+const organiser = require('gulp-organiser');
 const { curry } = require('lodash/fp');
 
 // Path resolution for these modules must be included in the pages' require.config
 
-module.exports = straw.register((task) => {
-  const extenalDependencies = task.extenalDependencies;
+module.exports = organiser.register((task) => {
+  const externalDependencies = task.externalDependencies;
 
   gulp.task(task.name, () => {
     return gulp.src(task.src)
-    .pipe(flatmap(doTranspilation(extenalDependencies))) // call doTranspilation for each file
+    .pipe(flatmap(doTranspilation(externalDependencies))) // call doTranspilation for each file
     .pipe(gulp.dest(task.dest));
   });
 });
 
 
-const doTranspilation = curry((extenalDependencies, stream, file) => {
+const doTranspilation = curry((externalDependencies, stream, file) => {
   const fileName = path.parse(file.path).base;
   return rollup({
     entry: file.path,
     sourceMap: true,
     // Treat these imports as external dependencies and
     // load them from the given paths
-    external: extenalDependencies,
+    external: externalDependencies,
     // Let's use AMD format to serve our files to the front-end
     format: 'amd',
     plugins: [
@@ -71,8 +73,7 @@ const doTranspilation = curry((extenalDependencies, stream, file) => {
 	.pipe(sourcemaps.init({ loadMaps: true }))
 	// Further modify the file here if needed
 
-  // TODO: enable uglifying for production
-  // .pipe(uglify())
+  .pipe(uglify())
 	// write the sourcemap alongside the output file.
 	.pipe(sourcemaps.write('.'));
 });

@@ -1,30 +1,28 @@
 // List all available tasks
-const straw = require('./tasks/straw');
-straw.registerAll('./tasks', {
-	'src': [
-		'./models/**/*.js',
-		'./routes/**/*.js',
-		'keystone.js',
-		'package.json'
-	],
-	'sass': {
-		'src': './public_src/styles/**/*.scss',
-		'dest': './public/styles/'
-	},
-	'copy-static': {
-		'src': './public_src/**/*',
-		'dest': './public',
-		'map': {
-			'./public_src/js_static/**/*': 'public/js'
-		}
-	},
-	'transpile-react': {
-		'watch': './public_src/js_es6/**/*.js',
-		'src': './public_src/js_es6/*.js',
-		'dest': './public/js',
-    'extenalDependencies': ['react', 'react-dom', 'lodash/fp', 'handlebars'],
-	},
-	'link-dependencies': {
-		'dest': './public/js'
-	}
+const path = require('path');
+const organiser = require('gulp-organiser');
+
+const srcRoot = './src';
+const destRoot = './dest';
+const externalDependencies = ['react', 'react-dom', 'fl-google-maps-react'];
+
+organiser.registerAll('./tasks', {
+  'transpile-react': {
+    module: {
+      src: path.join(srcRoot, 'js/index.js'),
+      dest: destRoot,
+      watch: path.join(srcRoot, 'js/**'),
+      externalDependencies,
+    },
+    demo: {
+      src: path.join(srcRoot, 'js/demo.js'),
+      dest: './example',
+      watch: path.join(srcRoot, 'js/**'),
+      externalDependencies,
+    },
+  },
+  'browser-sync': {
+    src: '.', // it doesn't matter, it's just so the task object is not ignored.
+    reloadOn: ['transpile-react'],
+  },
 });

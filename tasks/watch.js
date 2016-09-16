@@ -1,9 +1,9 @@
 // This task will start all tasks in this folder
 const gulp = require('gulp');
-const straw = require('./straw');
+const organiser = require('gulp-organiser');
 
-module.exports = straw.register((task) => {
-  const watchTasks = straw.loadFrom(`./${task.name}`);
+module.exports = organiser.register((task) => {
+  const watchTasks = organiser.loadFrom(`./${task.name}`);
   const watchTaskNames = watchTasks.map(t => t.name);
   gulp.task(task.name, watchTaskNames);
 });
