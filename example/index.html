@@ -8,7 +8,6 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.2.0/require.min.js"></script>
 	<script type="text/javascript">
 		requirejs.config({
-			baseUrl: '/js',
 			paths: {
 				'react': 'https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react.min',
 				'react-dom': 'https://cdnjs.cloudflare.com/ajax/libs/react/15.3.1/react-dom.min',
@@ -22,7 +21,7 @@
   <div id="map"></div>
 
   <script>
-    require(['/example/demo.js'], demo => {
+    require(['./demo.js'], demo => {
       const container = document.querySelector('#map');
       demo(container);
     })
