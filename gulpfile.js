@@ -12,13 +12,13 @@ organiser.registerAll('./tasks', {
       src: path.join(srcRoot, 'js/index.js'),
       dest: destRoot,
       watch: path.join(srcRoot, 'js/**'),
-      externalDependencies,
+      config: { external: externalDependencies, format: 'umd', moduleName: 'fl-google-maps-react' },
     },
     demo: {
       src: path.join(srcRoot, 'js/demo.js'),
       dest: './example',
       watch: path.join(srcRoot, 'js/**'),
-      externalDependencies,
+      config: { external: externalDependencies, format: 'umd', moduleName: 'example' },
     },
   },
   'browser-sync': {
