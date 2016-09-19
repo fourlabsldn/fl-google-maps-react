@@ -4,7 +4,7 @@ export default class Marker extends React.Component {
 
   componentDidUpdate(prevProps) {
     const mapChanged = this.props.map !== prevProps.map;
-    const positionChanged = this.props.pos !== prevProps.position;
+    const positionChanged = this.props.pos !== prevProps.pos;
 
     if (mapChanged || positionChanged) {
       const { map, google, pos } = this.props;
