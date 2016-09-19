@@ -2,7 +2,7 @@
   "name": "fl-google-maps-react",
   "version": "1.0.0",
   "description": "Google maps component for react",
-  "main": "index.js",
+  "main": "dest/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
