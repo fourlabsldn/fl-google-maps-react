@@ -2,26 +2,30 @@
 
 import ReactDOM from 'react-dom';
 import React from 'react';
-import { Map, Marker } from 'fl-google-maps-react';
+import { Map, Marker, InfoWindow } from 'fl-google-maps-react';
 
-const markersPositions = [
-  { lat: 51.497433, lng: -0.179737 },
-  { lat: 51.498544, lng: -0.177738 },
-  { lat: 51.499655, lng: -0.176739 },
-];
+const markersSkeleton = [
+  { lat: 51.497433, lng: -0.179737, placeName: 'Place no 1' },
+  { lat: 51.498544, lng: -0.177738, placeName: 'Place no 2' },
+  { lat: 51.499655, lng: -0.176739, placeName: 'Place no 3' },
+]
 
 class Wrapper extends React.Component {
   constructor() {
     super();
-    this.state = { markersPos: markersPositions };
+    this.state = { markersPos: markersSkeleton };
 
-    this.changeMarkersPositions = this.changeMarkersPositions.bind(this);
+    this.onMarkerClick = this.onMarkerClick.bind(this);
     this.render = this.render.bind(this);
   }
 
-  changeMarkersPositions() {
-    const poss = this.state.markersPos.map(p => ({ lat: p.lat, lng: p.lng + 0.010000 }));
-    this.setState({ markersPos: poss });
+  onMarkerClick(marker) {
+    console.log('Clicked:', marker);
+    this.setState({
+      selectedPlace: 'Anything',
+      activeMarker: marker,
+      showingInfoWindow: true,
+    });
   }
 
 
@@ -31,18 +35,13 @@ class Wrapper extends React.Component {
       // Wrapper must have set dimensions
       <div
         style={{ width: '100vw', height: '100vh', backgroundColor: 'green' }}
-        onClick={this.changeMarkersPositions}
       >
         <Map google={props.google} >
 
           <Marker
+            onClick={this.onMarkerClick}
             google={props.google}
             pos={{ lat: 51.496322, lng: -0.178736 }}
-            listeners={{
-              // See listeners at https://developers.google.com/maps/documentation/javascript/events
-              click: () => console.log('Clicked!'),
-              mouseover: () => console.log('Mouseovered!'),
-            }}
           />
 
           {this.state.markersPos.map((p, idx) => (
@@ -50,13 +49,19 @@ class Wrapper extends React.Component {
               key={idx}
               google={props.google}
               pos={p}
-              listeners={{
-                // See listeners at https://developers.google.com/maps/documentation/javascript/events
-                click: () => console.log(`Clicked ${idx}!`),
-                mouseover: () => console.log(`Mouse over ${idx}!`),
-              }}
+              onClick={this.onMarkerClick}
             />
           ))}
+
+
+          <InfoWindow
+            marker={this.state.activeMarker}
+            visible={this.state.showingInfoWindow}
+            onClose={this.onInfoWindowClose}>
+              <div>
+                <h1>{this.state.selectedPlace}</h1>
+              </div>
+          </InfoWindow>
 
         </Map>
       </div>

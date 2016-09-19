@@ -7,9 +7,9 @@ export default class Marker extends React.Component {
     const positionChanged = this.props.pos !== prevProps.position;
 
     if (mapChanged || positionChanged) {
-      const { map, google, pos, listeners } = this.props;
+      const { map, google, pos } = this.props;
       this.destroyMarker();
-      this.renderMarker(map, google, pos, listeners);
+      this.renderMarker(map, google, pos);
     }
   }
 
@@ -23,14 +23,13 @@ export default class Marker extends React.Component {
     if (this.marker) { this.marker.setMap(null); }
   }
 
-  renderMarker(map, google, pos, listeners = {}) {
+  renderMarker(map, google, pos) {
     const position = new google.maps.LatLng(pos.lat, pos.lng);
     const pref = { map, position };
     this.marker = new google.maps.Marker(pref);
 
-    Object.keys(listeners).forEach(l => {
-      this.marker.addListener(l, listeners[l]);
-    });
+    const clickListener = this.props.onClick || function () {};
+    this.marker.addListener('click', () => clickListener(this.marker));
   }
 
   render() {
@@ -42,5 +41,5 @@ Marker.propTypes = {
   pos: React.PropTypes.object.isRequired,
   map: React.PropTypes.object,
   google: React.PropTypes.object.isRequired,
-  listeners: React.PropTypes.object,
+  onClick: React.PropTypes.func,
 };
