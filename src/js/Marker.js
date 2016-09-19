@@ -7,9 +7,9 @@ export default class Marker extends React.Component {
     const positionChanged = this.props.pos !== prevProps.pos;
 
     if (mapChanged || positionChanged) {
-      const { map, google, pos } = this.props;
+      const { map, google, pos, icon } = this.props;
       this.destroyMarker();
-      this.renderMarker(map, google, pos);
+      this.renderMarker(map, google, pos, icon);
     }
   }
 
@@ -42,4 +42,5 @@ Marker.propTypes = {
   map: React.PropTypes.object,
   google: React.PropTypes.object.isRequired,
   onClick: React.PropTypes.func,
+  icon: React.PropTypes.string,
 };
