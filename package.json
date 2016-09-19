@@ -1,6 +1,6 @@
 {
   "name": "fl-google-maps-react",
-  "version": "1.0.0",
+  "version": "0.1.01",
   "description": "Google maps component for react",
   "main": "dest/index.js",
   "scripts": {
@@ -34,5 +34,39 @@
     "rollup-stream": "^1.13.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
-  }
+  },
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "babel-plugin-external-helpers-2": "^6.3.13",
+    "babel-plugin-transform-async-to-generator": "^6.8.0",
+    "babel-preset-es2015-rollup": "^1.2.0",
+    "babel-preset-react": "^6.11.1",
+    "browser-sync": "^2.16.0",
+    "gulp": "^3.9.1",
+    "gulp-flatmap": "^1.0.0",
+    "gulp-organiser": "^1.0.6",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^2.0.0",
+    "lodash": "^4.15.0",
+    "path": "^0.12.7",
+    "react-dom": "^15.3.1",
+    "react": "^15.3.1",
+    "rollup-plugin-babel": "^2.6.1",
+    "rollup-plugin-commonjs": "^4.1.0",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-replace": "^1.1.1",
+    "rollup-stream": "^1.13.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fourlabsldn/fl-google-maps-react.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fourlabsldn/fl-google-maps-react/issues"
+  },
+  "homepage": "https://github.com/fourlabsldn/fl-google-maps-react#readme"
 }
