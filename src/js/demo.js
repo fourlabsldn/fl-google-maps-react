@@ -42,6 +42,7 @@ class Wrapper extends React.Component {
             onClick={this.onMarkerClick}
             google={props.google}
             pos={{ lat: 51.496322, lng: -0.178736 }}
+            icon="http://res.cloudinary.com/golden-eagle/image/upload/v1473755159/g4172_lefldr.png"
           />
 
           {this.state.markersPos.map((p, idx) => (

@@ -23,9 +23,9 @@ export default class Marker extends React.Component {
     if (this.marker) { this.marker.setMap(null); }
   }
 
-  renderMarker(map, google, pos) {
+  renderMarker(map, google, pos, icon) {
     const position = new google.maps.LatLng(pos.lat, pos.lng);
-    const pref = { map, position };
+    const pref = { map, position, icon };
     this.marker = new google.maps.Marker(pref);
 
     const clickListener = this.props.onClick || function () {};
